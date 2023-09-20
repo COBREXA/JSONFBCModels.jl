@@ -1,0 +1,7 @@
+/.vscode
+/vscode
+*.code-workspace
+Manifest.toml
+
+downloaded/*
+test/downloaded/*
