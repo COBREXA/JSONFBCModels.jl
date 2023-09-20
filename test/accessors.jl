@@ -11,7 +11,7 @@
     @test all(length.(J.bounds(model)) .== 2712)
     @test all(J.balance(model) .== 0) 
     @test J.objective(model)[2669] == 1 
-    @test all(in.(J.reaction_gene_association(model, "FBA"), Ref([ ["b2925"],["b2097"]])))
+    @test all(in.(J.reaction_gene_associations(model, "FBA"), Ref([ ["b2925"],["b2097"]])))
     @test J.metabolite_formula(model, "atp_c")["C"] == 10 
     @test J.metabolite_charge(model, "atp_c") == -4 
     @test J.metabolite_compartment(model, "atp_c") == "c" 

@@ -114,7 +114,7 @@ A.balance(model::JSONFBCModel) = spzeros(n_metabolites(model))
 
 A.objective(model::JSONFBCModel) = sparse([float(get(rxn, "objective_coefficient", 0.0)) for rxn in model.reactions])
 
-A.reaction_gene_association(model::JSONFBCModel, rid::String) = A.maybemap(
+A.reaction_gene_associations(model::JSONFBCModel, rid::String) = A.maybemap(
         A.parse_grr,
         get(model.reactions[model.reaction_index[rid]], "gene_reaction_rule", nothing),
     )
