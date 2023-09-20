@@ -57,15 +57,18 @@ JSONFBCModel(json::Dict{String,Any}) = begin
 end
 
 # model
-A.reactions(model::JSONFBCModel) = [Internal._json_rxn_name(r, i) for (i, r) in enumerate(model.reactions)]
+A.reactions(model::JSONFBCModel) =
+    [Internal._json_rxn_name(r, i) for (i, r) in enumerate(model.reactions)]
 
 A.n_reactions(model::JSONFBCModel) = length(model.reactions)
 
-A.metabolites(model::JSONFBCModel) = [Internal._json_met_name(m, i) for (i, m) in enumerate(model.metabolites)]
+A.metabolites(model::JSONFBCModel) =
+    [Internal._json_met_name(m, i) for (i, m) in enumerate(model.metabolites)]
 
 A.n_metabolites(model::JSONFBCModel) = length(model.metabolites)
 
-A.genes(model::JSONFBCModel) = [Internal._json_gene_name(g, i) for (i, g) in enumerate(model.genes)]
+A.genes(model::JSONFBCModel) =
+    [Internal._json_gene_name(g, i) for (i, g) in enumerate(model.genes)]
 
 A.n_genes(model::JSONFBCModel) = length(model.genes)
 
@@ -106,48 +109,69 @@ function A.stoichiometry(model::JSONFBCModel)
 end
 
 A.bounds(model::JSONFBCModel) = (
-        [get(rxn, "lower_bound", -Internal.constants.default_reaction_bound) for rxn in model.reactions],
-        [get(rxn, "upper_bound", Internal.constants.default_reaction_bound) for rxn in model.reactions],
-    )
+    [
+        get(rxn, "lower_bound", -Internal.constants.default_reaction_bound) for
+        rxn in model.reactions
+    ],
+    [
+        get(rxn, "upper_bound", Internal.constants.default_reaction_bound) for
+        rxn in model.reactions
+    ],
+)
 
 A.balance(model::JSONFBCModel) = spzeros(n_metabolites(model))
 
-A.objective(model::JSONFBCModel) = sparse([float(get(rxn, "objective_coefficient", 0.0)) for rxn in model.reactions])
+A.objective(model::JSONFBCModel) =
+    sparse([float(get(rxn, "objective_coefficient", 0.0)) for rxn in model.reactions])
 
 A.reaction_gene_associations(model::JSONFBCModel, rid::String) = A.maybemap(
-        A.parse_grr,
-        get(model.reactions[model.reaction_index[rid]], "gene_reaction_rule", nothing),
-    )
+    A.parse_grr,
+    get(model.reactions[model.reaction_index[rid]], "gene_reaction_rule", nothing),
+)
 
-A.metabolite_formula(model::JSONFBCModel, mid::String) = A.maybemap(A.parse_formula, get(model.metabolites[model.metabolite_index[mid]], "formula", nothing))
+A.metabolite_formula(model::JSONFBCModel, mid::String) = A.maybemap(
+    A.parse_formula,
+    get(model.metabolites[model.metabolite_index[mid]], "formula", nothing),
+)
 
-A.metabolite_charge(model::JSONFBCModel, mid::String) = get(model.metabolites[model.metabolite_index[mid]], "charge", 0)
+A.metabolite_charge(model::JSONFBCModel, mid::String) =
+    get(model.metabolites[model.metabolite_index[mid]], "charge", 0)
 
-A.metabolite_compartment(model::JSONFBCModel, mid::String) = get(model.metabolites[model.metabolite_index[mid]], "compartment", nothing)
+A.metabolite_compartment(model::JSONFBCModel, mid::String) =
+    get(model.metabolites[model.metabolite_index[mid]], "compartment", nothing)
 
 A.gene_annotations(model::JSONFBCModel, gid::String) = A.maybemap(
     Internal._parse_annotations,
     get(model.genes[model.gene_index[gid]], "annotation", nothing),
 )
 
-A.gene_notes(model::JSONFBCModel, gid::String) = A.maybemap(Internal._parse_notes, get(model.genes[model.gene_index[gid]], "notes", nothing))
+A.gene_notes(model::JSONFBCModel, gid::String) = A.maybemap(
+    Internal._parse_notes,
+    get(model.genes[model.gene_index[gid]], "notes", nothing),
+)
 
 A.reaction_annotations(model::JSONFBCModel, rid::String) = A.maybemap(
     Internal._parse_annotations,
     get(model.reactions[model.reaction_index[rid]], "annotation", nothing),
 )
 
-A.reaction_notes(model::JSONFBCModel, rid::String) =
-    A.maybemap(Internal._parse_notes, get(model.reactions[model.reaction_index[rid]], "notes", nothing))
+A.reaction_notes(model::JSONFBCModel, rid::String) = A.maybemap(
+    Internal._parse_notes,
+    get(model.reactions[model.reaction_index[rid]], "notes", nothing),
+)
 
 A.metabolite_annotations(model::JSONFBCModel, mid::String) = A.maybemap(
     Internal._parse_annotations,
     get(model.metabolites[model.metabolite_index[mid]], "annotation", nothing),
 )
 
-A.metabolite_notes(model::JSONFBCModel, mid::String) = A.maybemap(Internal._parse_notes, get(model.metabolites[model.metabolite_index[mid]], "notes", nothing))
+A.metabolite_notes(model::JSONFBCModel, mid::String) = A.maybemap(
+    Internal._parse_notes,
+    get(model.metabolites[model.metabolite_index[mid]], "notes", nothing),
+)
 
-A.reaction_stoichiometry(model::JSONFBCModel, rid::String) = model.reactions[model.reaction_index[rid]]["metabolites"]
+A.reaction_stoichiometry(model::JSONFBCModel, rid::String) =
+    model.reactions[model.reaction_index[rid]]["metabolites"]
 
 A.reaction_name(model::JSONFBCModel, rid::String) =
     get(model.reactions[model.reaction_index[rid]], "name", nothing)

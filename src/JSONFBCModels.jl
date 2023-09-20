@@ -5,10 +5,10 @@ import AbstractFBCModels as A
 using JSON, SparseArrays, Reexport
 
 module Internal
-    using DocStringExtensions
-    import ..A
-    include("constants.jl")
-    include("utils.jl")
+using DocStringExtensions
+import ..A
+include("constants.jl")
+include("utils.jl")
 end
 
 import .Internal
