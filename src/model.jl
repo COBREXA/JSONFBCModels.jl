@@ -34,15 +34,15 @@ struct JSONFBCModel <: A.AbstractFBCModel
 end
 
 JSONFBCModel(json::Dict{String,Any}) = begin
-    rkey = Internal.guesskey(keys(json), Internal.constants.keynames.reactions)
+    rkey = A.guesskey(keys(json), Internal.constants.keynames.reactions)
     isnothing(rkey) && throw(DomainError(keys(json), "JSON model has no reaction keys"))
     rs = json[rkey]
 
-    mkey = Internal.guesskey(keys(json), Internal.constants.keynames.metabolites)
+    mkey = A.guesskey(keys(json), Internal.constants.keynames.metabolites)
     ms = json[mkey]
     isnothing(mkey) && throw(DomainError(keys(json), "JSON model has no metabolite keys"))
 
-    gkey = Internal.guesskey(keys(json), Internal.constants.keynames.genes)
+    gkey = A.guesskey(keys(json), Internal.constants.keynames.genes)
     gs = isnothing(gkey) ? [] : json[gkey]
 
     JSONFBCModel(
