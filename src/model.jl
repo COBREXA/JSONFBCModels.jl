@@ -56,7 +56,6 @@ JSONFBCModel(json::Dict{String,Any}) = begin
     )
 end
 
-# model
 A.reactions(model::JSONFBCModel) =
     [Internal._json_rxn_name(r, i) for (i, r) in enumerate(model.reactions)]
 
@@ -182,67 +181,67 @@ A.metabolite_name(model::JSONFBCModel, mid::String) =
 A.gene_name(model::JSONFBCModel, gid::String) =
     get(model.genes[model.gene_index[gid]], "name", nothing)
 
-# function Base.convert(::Type{JSONFBCModel}, mm::AbstractMetabolicModel)
-#     if typeof(mm) == JSONFBCModel
-#         return mm
-#     end
+function Base.convert(::Type{JSONFBCModel}, mm::AbstractFBCModel)
+    if typeof(mm) == JSONFBCModel
+        return mm
+    end
 
-#     rxn_ids = variable_ids(mm)
-#     met_ids = metabolite_ids(mm)
-#     gene_ids = genes(mm)
-#     S = stoichiometry(mm)
-#     lbs, ubs = variable_bounds(mm)
-#     ocs = objective(mm)
+    rxn_ids = variable_ids(mm)
+    met_ids = metabolite_ids(mm)
+    gene_ids = genes(mm)
+    S = stoichiometry(mm)
+    lbs, ubs = variable_bounds(mm)
+    ocs = objective(mm)
 
-#     json = Dict{String,Any}()
+    json = Dict{String,Any}()
 
-#     json["annotation"] = model_annotations(mm)
-#     json["notes"] = model_notes(mm)
+    json["annotation"] = model_annotations(mm)
+    json["notes"] = model_notes(mm)
 
-#     json[first(constants.keynames.genes)] = [
-#         Dict([
-#             "id" => gid,
-#             "name" => gene_name(mm, gid),
-#             "annotation" => gene_annotations(mm, gid),
-#             "notes" => gene_notes(mm, gid),
-#         ],) for gid in gene_ids
-#     ]
+    json[first(constants.keynames.genes)] = [
+        Dict([
+            "id" => gid,
+            "name" => gene_name(mm, gid),
+            "annotation" => gene_annotations(mm, gid),
+            "notes" => gene_notes(mm, gid),
+        ],) for gid in gene_ids
+    ]
 
-#     json[first(constants.keynames.mets)] = [
-#         Dict([
-#             "id" => mid,
-#             "name" => metabolite_name(mm, mid),
-#             "formula" => maybemap(unparse_formula, metabolite_formula(mm, mid)),
-#             "charge" => metabolite_charge(mm, mid),
-#             "compartment" => metabolite_compartment(mm, mid),
-#             "annotation" => metabolite_annotations(mm, mid),
-#             "notes" => metabolite_notes(mm, mid),
-#         ]) for mid in met_ids
-#     ]
+    json[first(constants.keynames.mets)] = [
+        Dict([
+            "id" => mid,
+            "name" => metabolite_name(mm, mid),
+            "formula" => maybemap(unparse_formula, metabolite_formula(mm, mid)),
+            "charge" => metabolite_charge(mm, mid),
+            "compartment" => metabolite_compartment(mm, mid),
+            "annotation" => metabolite_annotations(mm, mid),
+            "notes" => metabolite_notes(mm, mid),
+        ]) for mid in met_ids
+    ]
 
-#     json[first(constants.keynames.rxns)] = [
-#         begin
-#             res = Dict{String,Any}()
-#             res["id"] = rid
-#             res["name"] = reaction_name(mm, rid)
-#             res["subsystem"] = reaction_subsystem(mm, rid)
-#             res["annotation"] = reaction_annotations(mm, rid)
-#             res["notes"] = reaction_notes(mm, rid)
+    json[first(constants.keynames.rxns)] = [
+        begin
+            res = Dict{String,Any}()
+            res["id"] = rid
+            res["name"] = reaction_name(mm, rid)
+            res["subsystem"] = reaction_subsystem(mm, rid)
+            res["annotation"] = reaction_annotations(mm, rid)
+            res["notes"] = reaction_notes(mm, rid)
 
-#             grr = reaction_gene_associations(mm, rid)
-#             if !isnothing(grr)
-#                 res["gene_reaction_rule"] = unparse_grr(String, grr)
-#             end
+            grr = reaction_gene_associations(mm, rid)
+            if !isnothing(grr)
+                res["gene_reaction_rule"] = unparse_grr(String, grr)
+            end
 
-#             res["lower_bound"] = lbs[ri]
-#             res["upper_bound"] = ubs[ri]
-#             res["objective_coefficient"] = ocs[ri]
-#             I, V = findnz(S[:, ri])
-#             res["metabolites"] =
-#                 Dict{String,Float64}([met_ids[ii] => vv for (ii, vv) in zip(I, V)])
-#             res
-#         end for (ri, rid) in enumerate(rxn_ids)
-#     ]
+            res["lower_bound"] = lbs[ri]
+            res["upper_bound"] = ubs[ri]
+            res["objective_coefficient"] = ocs[ri]
+            I, V = findnz(S[:, ri])
+            res["metabolites"] =
+                Dict{String,Float64}([met_ids[ii] => vv for (ii, vv) in zip(I, V)])
+            res
+        end for (ri, rid) in enumerate(rxn_ids)
+    ]
 
-#     return JSONFBCModel(json)
-# end
+    return JSONFBCModel(json)
+end
