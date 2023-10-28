@@ -1,33 +1,39 @@
-using Test
 import AbstractFBCModels as A
-import JSONFBCModels as J
+import JSONFBCModels: JSONFBCModel
 
-include("test_utils.jl")
+using Test
 
-isdir("downloaded") || mkdir("downloaded")
+@testset "JSONFBCModels tests" begin
+    A.run_fbcmodel_type_tests(JSONFBCModel)
 
-iml1515_path = A.download_data_file(
-    "http://bigg.ucsd.edu/static/models/iML1515.json",
-    joinpath("downloaded", "iML1515.json"),
-    "b0f9199f048779bb08a14dfa6c09ec56d35b8750d2f99681980d0f098355fbf5",
-)
+    modeldir = joinpath(@__DIR__, "test-models")
+    mkpath(modeldir)
 
-@testset "JSONFBCModels" begin
-    @testset "Interface implemented" begin
-        A.run_fbcmodel_type_tests(J.JSONFBCModel)
+    for (name, url, hash, ts) in [
+        (
+            "e_coli_core",
+            "http://bigg.ucsd.edu/static/models/e_coli_core.json",
+            "7bedec10576cfe935b19218dc881f3fb14f890a1871448fc19a9b4ee15b448d8",
+            true,
+        ),
+        (
+            "iJO1366",
+            "http://bigg.ucsd.edu/static/models/iJO1366.json",
+            "9376a93f62ad430719f23e612154dd94c67e0d7c9545ed9d17a4d0c347672313",
+            true,
+        ),
+        (
+            "iML1515",
+            "http://bigg.ucsd.edu/static/models/iML1515.json",
+            "b0f9199f048779bb08a14dfa6c09ec56d35b8750d2f99681980d0f098355fbf5",
+            true,
+        ),
+    ]
+        path = joinpath(modeldir, "$name.json")
+        A.download_data_file(url, path, hash)
+        A.run_fbcmodel_file_tests(JSONFBCModel, path; name, test_save = ts)
     end
 
-    @testset "IO" begin
-        include("io.jl")
-        # TODO test convert
-
-    end
-
-    @testset "Accessors" begin
-        A.run_fbcmodel_file_tests(J.JSONFBCModel, iml1515_path; name="iML1515", test_save=true)
-
-        @testset "Specific details of iML1515" begin
-            test_iml1515_details(iml1515_path)            
-        end
-    end
+    include("test_iML1515.jl")
+    include("misc.jl")
 end

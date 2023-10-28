@@ -18,18 +18,19 @@ The primary purpose of this is to provide JSON loading functionality for
 [FBCModelTests.jl](https://github.com/LCSB-BioCore/FBCModelTests.jl), but is
 otherwise completely generic and can be used independently of these packages.
 
-You should be able to load JSON models (called `JSONFBCModel`) via the
+You should be able to load JSON models (of type  `JSONFBCModel`) via the
 AbstractFBCModels interface:
 
 ```julia
-import AbstractFBCModels as A
+import AbstractFBCModels as M
 import JSONFBCModels
 
-model = A.load("my_model.json")
-A.reactions(model) # accessors defined by the interface (NB: access through the overloads: A.xyz)
+model = M.load("my_model.json")
 ```
-See the docstrings of all the accessors available by entering `A.accessors()` in
-the REPL. For example:
+
+Documentation of
+[AbstractFBCModels.jl](https://github.com/COBREXA/AbstractFBCModels.jl)
+provides details on the use of the loaded model.
 
 #### Acknowledgements
 

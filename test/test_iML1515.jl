@@ -1,5 +1,8 @@
-function test_iml1515_details(iml1515_path::String)
-    model = A.load(J.JSONFBCModel, iml1515_path)
+
+@testset "Test the expected contents of iML1515.json" begin
+
+    # the path is inherited from the main testset
+    model = A.load(JSONFBCModel, joinpath(@__DIR__, "test-models", "iML1515.json"))
 
     @test "SHK3Dr" in A.reactions(model)
     @test A.n_reactions(model) == 2712
@@ -11,7 +14,9 @@ function test_iml1515_details(iml1515_path::String)
     @test all(length.(A.bounds(model)) .== 2712)
     @test all(A.balance(model) .== 0)
     @test A.objective(model)[2669] == 1
-    @test all(in.(A.reaction_gene_association_dnf(model, "FBA"), Ref([["b2925"], ["b2097"]])))
+    @test all(
+        in.(A.reaction_gene_association_dnf(model, "FBA"), Ref([["b2925"], ["b2097"]])),
+    )
     @test A.metabolite_formula(model, "atp_c")["C"] == 10
     @test A.metabolite_charge(model, "atp_c") == -4
     @test A.metabolite_compartment(model, "atp_c") == "c"

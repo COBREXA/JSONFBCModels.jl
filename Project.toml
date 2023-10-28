@@ -11,8 +11,8 @@ ReadableRegex = "cbbcb084-453d-4c4c-b292-e315607ba6a4"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [compat]
-AbstractFBCModels = "0.2"
-DocStringExtensions = "0.9"
+AbstractFBCModels = "0.1, 0.2"
+DocStringExtensions = "0.8, 0.9"
 JSON = "0.21"
 
 [extras]

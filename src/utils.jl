@@ -1,14 +1,14 @@
 
-_json_rxn_name(r, i) = string(get(r, "id", "rxn$i"))
+extract_json_reaction_id(r, i) = string(get(r, "id", "rxn$i"))
 
-_json_met_name(m, i) = string(get(m, "id", "met$i"))
+extract_json_metabolite_id(m, i) = string(get(m, "id", "met$i"))
 
-_json_gene_name(g, i) = string(get(g, "id", "gene$i"))
+extract_json_gene_id(g, i) = string(get(g, "id", "gene$i"))
 
 function parse_grr(str::Maybe{String})
     isnothing(str) && return nothing
     isempty(str) && return nothing
-    
+
     dnf = A.GeneAssociationDNF()
     for isozyme in string.(split(str, " or "))
         push!(
@@ -31,15 +31,17 @@ function parse_formula(x::Maybe{String})
     return res
 end
 
-function parse_charge(x)
+function parse_charge(x)::Maybe{Int}
     if isa(x, Int)
-        return x
+        x
     elseif isa(x, Float64)
-        return Int(x)::Int
+        Int(x)
     elseif isa(x, String)
-        return parse(Int, x)
-    else
+        Int(parse(Float64, x))
+    elseif isnothing(x)
         nothing
+    else
+        throw(DomainError(x, "cannot parse charge"))
     end
 end
 
@@ -53,7 +55,7 @@ function parse_annotations_or_notes(x)
         if isa(vs, String)
             a_or_n[k] = String[vs]
         else
-            a_or_n[k] = String[v for v in vs]    
+            a_or_n[k] = String[v for v in vs]
         end
     end
     return a_or_n
