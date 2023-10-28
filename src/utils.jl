@@ -31,15 +31,17 @@ function parse_formula(x::Maybe{String})
     return res
 end
 
-function parse_charge(x)
+function parse_charge(x)::Maybe{Int}
     if isa(x, Int)
-        return x
+        x
     elseif isa(x, Float64)
-        return Int(x)::Int
+        Int(x)
     elseif isa(x, String)
-        return parse(Int, x)
-    else
+        Int(parse(Float64, x))
+    elseif isnothing(x)
         nothing
+    else
+        throw(DomainError(x, "cannot parse charge"))
     end
 end
 
