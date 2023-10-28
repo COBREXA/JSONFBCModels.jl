@@ -124,6 +124,9 @@ A.objective(model::JSONFBCModel) = sparsevec(
     Float64[float(get(rxn, "objective_coefficient", 0.0)) for rxn in model.reactions],
 )
 
+A.reaction_gene_products_available(model::JSONFBCModel, rid::String, available::Function) =
+    A.reaction_gene_products_available_from_dnf(model, rid, available)
+
 A.reaction_gene_association_dnf(model::JSONFBCModel, rid::String) = parse_grr(
     get(model.reactions[model.reaction_index[rid]], "gene_reaction_rule", nothing),
 )
