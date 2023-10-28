@@ -8,7 +8,7 @@ _json_gene_name(g, i) = string(get(g, "id", "gene$i"))
 function parse_grr(str::Maybe{String})
     isnothing(str) && return nothing
     isempty(str) && return nothing
-    
+
     dnf = A.GeneAssociationDNF()
     for isozyme in string.(split(str, " or "))
         push!(
@@ -53,7 +53,7 @@ function parse_annotations_or_notes(x)
         if isa(vs, String)
             a_or_n[k] = String[vs]
         else
-            a_or_n[k] = String[v for v in vs]    
+            a_or_n[k] = String[v for v in vs]
         end
     end
     return a_or_n

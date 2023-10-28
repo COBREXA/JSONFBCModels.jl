@@ -22,5 +22,5 @@
 
     saved_path = joinpath(mktempdir(), "test-model.json")
     A.save(model, saved_path)
-    test_iml1515_details(saved_path)   
+    test_iml1515_details(saved_path)
 end

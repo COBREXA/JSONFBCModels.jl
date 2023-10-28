@@ -24,10 +24,15 @@ iml1515_path = A.download_data_file(
     end
 
     @testset "Accessors" begin
-        A.run_fbcmodel_file_tests(J.JSONFBCModel, iml1515_path; name="iML1515", test_save=true)
+        A.run_fbcmodel_file_tests(
+            J.JSONFBCModel,
+            iml1515_path;
+            name = "iML1515",
+            test_save = true,
+        )
 
         @testset "Specific details of iML1515" begin
-            test_iml1515_details(iml1515_path)            
+            test_iml1515_details(iml1515_path)
         end
     end
 end
