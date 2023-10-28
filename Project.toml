@@ -8,14 +8,12 @@ AbstractFBCModels = "5a4f3dfa-1789-40f8-8221-69268c29937c"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
 ReadableRegex = "cbbcb084-453d-4c4c-b292-e315607ba6a4"
-Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [compat]
 AbstractFBCModels = "0.2"
 DocStringExtensions = "0.9"
 JSON = "0.21"
-Reexport = "1.2"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

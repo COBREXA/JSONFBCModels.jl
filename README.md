@@ -6,7 +6,7 @@
 |:---:|
 | [![CI](https://github.com/COBREXA/JSONFBCModels.jl/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/COBREXA/JSONFBCModels.jl/actions/workflows/ci.yml) [![codecov](https://codecov.io/gh/COBREXA/JSONFBCModels.jl/branch/master/graph/badge.svg?token=A2ui7exGIH)](https://codecov.io/gh/COBREXA/JSONFBCModels.jl) |
 
-This package defines an instance of the `AbstractFBCModel` interface (from
+This package defines an instance of the `AbstractFBCModel` interface (from the
 package [AbstractFBCModels.jl](https://github.com/COBREXA/AbstractFBCModels.jl))
 for models saved as JSON files (typically produced by
 [cobrapy](https://opencobra.github.io/cobrapy/)). This allows you to easily use
@@ -18,7 +18,8 @@ The primary purpose of this is to provide JSON loading functionality for
 [FBCModelTests.jl](https://github.com/LCSB-BioCore/FBCModelTests.jl), but is
 otherwise completely generic and can be used independently of these packages.
 
-You should be able to load JSON models via the AbstractFBCModels interface:
+You should be able to load JSON models (called `JSONFBCModel`) via the
+AbstractFBCModels interface:
 
 ```julia
 import AbstractFBCModels as A
