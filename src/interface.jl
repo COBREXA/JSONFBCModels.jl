@@ -218,7 +218,6 @@ function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
             res = Dict{String,Any}()
             res["id"] = rid
             res["name"] = A.reaction_name(mm, rid)
-            # res["subsystem"] = A.reaction_subsystem(mm, rid)
             res["annotation"] = A.reaction_annotations(mm, rid)
             res["notes"] = A.reaction_notes(mm, rid)
 
