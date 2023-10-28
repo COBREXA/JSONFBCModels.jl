@@ -47,28 +47,28 @@ JSONFBCModel(json::Dict{String,Any}) = begin
 
     JSONFBCModel(
         json,
-        Dict(_json_rxn_name(r, i) => i for (i, r) in enumerate(rs)),
+        Dict(extract_json_reaction_id(r, i) => i for (i, r) in enumerate(rs)),
         rs,
-        Dict(_json_met_name(m, i) => i for (i, m) in enumerate(ms)),
+        Dict(extract_json_metabolite_id(m, i) => i for (i, m) in enumerate(ms)),
         ms,
-        Dict(_json_gene_name(g, i) => i for (i, g) in enumerate(gs)),
+        Dict(extract_json_gene_id(g, i) => i for (i, g) in enumerate(gs)),
         gs,
     )
 end
 
 # model
 A.reactions(model::JSONFBCModel) =
-    String[_json_rxn_name(r, i) for (i, r) in enumerate(model.reactions)]
+    String[extract_json_reaction_id(r, i) for (i, r) in enumerate(model.reactions)]
 
 A.n_reactions(model::JSONFBCModel) = length(model.reactions)
 
 A.metabolites(model::JSONFBCModel) =
-    String[_json_met_name(m, i) for (i, m) in enumerate(model.metabolites)]
+    String[extract_json_metabolite_id(m, i) for (i, m) in enumerate(model.metabolites)]
 
 A.n_metabolites(model::JSONFBCModel) = length(model.metabolites)
 
 A.genes(model::JSONFBCModel) =
-    String[_json_gene_name(g, i) for (i, g) in enumerate(model.genes)]
+    String[extract_json_gene_id(g, i) for (i, g) in enumerate(model.genes)]
 
 A.n_genes(model::JSONFBCModel) = length(model.genes)
 

@@ -1,9 +1,9 @@
 
-_json_rxn_name(r, i) = string(get(r, "id", "rxn$i"))
+extract_json_reaction_id(r, i) = string(get(r, "id", "rxn$i"))
 
-_json_met_name(m, i) = string(get(m, "id", "met$i"))
+extract_json_metabolite_id(m, i) = string(get(m, "id", "met$i"))
 
-_json_gene_name(g, i) = string(get(g, "id", "gene$i"))
+extract_json_gene_id(g, i) = string(get(g, "id", "gene$i"))
 
 function parse_grr(str::Maybe{String})
     isnothing(str) && return nothing
