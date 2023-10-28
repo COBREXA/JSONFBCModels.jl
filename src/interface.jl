@@ -182,7 +182,7 @@ function A.metabolite_compartment(model::JSONFBCModel, mid::String)
 end
 
 function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
-    if typeof(mm) == J.JSONFBCModel
+    if typeof(mm) == JSONFBCModel
         return mm
     end
 
@@ -195,7 +195,7 @@ function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
 
     json = Dict{String,Any}()
 
-    json[first(J.constants.keynames.genes)] = [
+    json[first(constants.keynames.genes)] = [
         Dict([
             "id" => gid,
             "name" => A.gene_name(mm, gid),
@@ -204,11 +204,11 @@ function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
         ],) for gid in gene_ids
     ]
 
-    json[first(J.constants.keynames.metabolites)] = [
+    json[first(constants.keynames.metabolites)] = [
         Dict([
             "id" => mid,
             "name" => A.metabolite_name(mm, mid),
-            "formula" => J.unparse_formula(A.metabolite_formula(mm, mid)),
+            "formula" => unparse_formula(A.metabolite_formula(mm, mid)),
             "charge" => A.metabolite_charge(mm, mid),
             "compartment" => A.metabolite_compartment(mm, mid),
             "annotation" => A.metabolite_annotations(mm, mid),
@@ -216,7 +216,7 @@ function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
         ]) for mid in met_ids
     ]
 
-    json[first(J.constants.keynames.reactions)] = [
+    json[first(constants.keynames.reactions)] = [
         begin
             res = Dict{String,Any}()
             res["id"] = rid
@@ -226,7 +226,7 @@ function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
 
             grr = A.reaction_gene_association_dnf(mm, rid)
             if !isnothing(grr)
-                res["gene_reaction_rule"] = J.unparse_grr(grr)
+                res["gene_reaction_rule"] = unparse_grr(grr)
             end
 
             res["lower_bound"] = lbs[ri]

@@ -7,7 +7,7 @@ _json_gene_name(g, i) = string(get(g, "id", "gene$i"))
 
 function parse_grr(str::Maybe{String})
     isnothing(str) && return nothing
-    isempty("") && return nothing
+    isempty(str) && return nothing
     
     dnf = A.GeneAssociationDNF()
     for isozyme in string.(split(str, " or "))
