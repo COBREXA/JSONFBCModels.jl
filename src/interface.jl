@@ -169,7 +169,7 @@ A.metabolite_name(model::JSONFBCModel, mid::String) =
 A.gene_name(model::JSONFBCModel, gid::String) =
     parse_name(get(model.genes[model.gene_index[gid]], "name", nothing))
 
-A.reaction_stoichiometry(model::JSONFBCModel, rid::String) =
+A.reaction_stoichiometry(model::JSONFBCModel, rid::String)::Dict{String,Float64} =
     model.reactions[model.reaction_index[rid]]["metabolites"]
 
 function A.metabolite_compartment(model::JSONFBCModel, mid::String)
