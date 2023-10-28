@@ -12,8 +12,6 @@ iml1515_path = A.download_data_file(
     "b0f9199f048779bb08a14dfa6c09ec56d35b8750d2f99681980d0f098355fbf5",
 )
 
-iml1515_path = joinpath("downloaded", "iML1515.json") # TODO remove me
-
 @testset "JSONFBCModels" begin
     @testset "Interface implemented" begin
         A.run_fbcmodel_type_tests(J.JSONFBCModel)
@@ -22,7 +20,7 @@ iml1515_path = joinpath("downloaded", "iML1515.json") # TODO remove me
     @testset "IO" begin
         include("io.jl")
         # TODO test convert
-        
+
     end
 
     @testset "Accessors" begin
