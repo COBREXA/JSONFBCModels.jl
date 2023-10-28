@@ -1,7 +1,10 @@
-/.vscode
-/vscode
-*.code-workspace
+/docs/build/
 Manifest.toml
 
-downloaded/*
-test/downloaded/*
+*.cov
+.*.swp
+
+.vscode
+*.code-workspace
+
+/test/test-models
