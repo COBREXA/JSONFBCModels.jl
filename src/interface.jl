@@ -174,11 +174,7 @@ A.reaction_stoichiometry(model::JSONFBCModel, rid::String)::Dict{String,Float64}
 
 function A.metabolite_compartment(model::JSONFBCModel, mid::String)
     x = get(model.metabolites[model.metabolite_index[mid]], "compartment", nothing)
-    if isa(x, String)
-        return x
-    else
-        return nothing
-    end
+    return isa(x, String) ? x : nothing
 end
 
 function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
