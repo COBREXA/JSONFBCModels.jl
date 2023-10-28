@@ -11,3 +11,5 @@ const constants = (
         genes = ["genes", "GENES", "Genes"],
     ),
 )
+
+const Maybe = A.Maybe
