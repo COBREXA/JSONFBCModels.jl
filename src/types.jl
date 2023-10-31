@@ -3,7 +3,8 @@
 $(TYPEDEF)
 
 A representation of the contents of a JSON model, i.e. a metabolic model read
-from a file ending with `.json`. The data is stored in the Julia version of JSON as given by `JSON.jl`, basically as vectors and dictionaries.
+from a file ending with `.json`. The data is stored in the Julia version of
+JSON as given by `JSON.jl`, basically as vectors and dictionaries.
 
 Because the JSON format is very open, some of the data in the JSON models are
 not represented by the AbstractFBCModel interface, and thus gets lost upon
