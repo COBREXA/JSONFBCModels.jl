@@ -64,10 +64,10 @@ end
 function unparse_formula(x::Maybe{A.MetaboliteFormula})
     isnothing(x) && return nothing
     ks = sort(collect(keys(x)))
-    join([k * string(x[k]) for k in ks])
+    join(k * string(x[k]) for k in ks)
 end
 
 function unparse_grr(xs::Maybe{A.GeneAssociationDNF})
     isnothing(xs) && return nothing
-    join([join(x, " and ") for x in xs], " or ")
+    join((join(x, " and ") for x in xs), " or ")
 end
