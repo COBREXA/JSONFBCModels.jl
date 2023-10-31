@@ -1,15 +1,16 @@
 module JSONFBCModels
 
 using DocStringExtensions
-import AbstractFBCModels as A
-using ReadableRegex
-using JSON, SparseArrays
 
+import AbstractFBCModels as A
+
+using JSON
+using SparseArrays
+
+include("types.jl")
 include("constants.jl")
-include("utils.jl")
 include("interface.jl")
 include("io.jl")
-
-export JSONFBCModel
+include("utils.jl")
 
 end
