@@ -2,7 +2,6 @@ module JSONFBCModels
 
 using DocStringExtensions
 import AbstractFBCModels as A
-using ReadableRegex
 using JSON, SparseArrays
 
 include("constants.jl")
