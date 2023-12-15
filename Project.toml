@@ -1,18 +1,20 @@
 name = "JSONFBCModels"
 uuid = "475c1105-d6ed-49c1-9b32-c11adca6d3e8"
-authors = ["Mirek Kratochvil <miroslav.kratochvil@uni.lu>"]
-version = "0.1.0"
+authors = ["The authors of JSONFBCModels.jl"]
+version = "0.1.1"
 
 [deps]
 AbstractFBCModels = "5a4f3dfa-1789-40f8-8221-69268c29937c"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+PikaParser = "3bbf5609-3e7b-44cd-8549-7c69f321e792"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [compat]
 AbstractFBCModels = "0.1, 0.2"
 DocStringExtensions = "0.8, 0.9"
 JSON = "0.21"
+PikaParser = "0.6"
 SparseArrays = "1"
 Test = "1"
 julia = "1"
