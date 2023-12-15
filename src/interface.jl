@@ -90,12 +90,25 @@ A.objective(model::JSONFBCModel) = sparsevec(
     Float64[float(get(rxn, "objective_coefficient", 0.0)) for rxn in model.reactions],
 )
 
-A.reaction_gene_products_available(model::JSONFBCModel, rid::String, available::Function) =
-    A.reaction_gene_products_available_from_dnf(model, rid, available)
-
-A.reaction_gene_association_dnf(model::JSONFBCModel, rid::String) = parse_grr(
-    get(model.reactions[model.reaction_index[rid]], "gene_reaction_rule", nothing),
+function A.reaction_gene_products_available(
+    model::JSONFBCModel,
+    rid::String,
+    available::Function,
 )
+    x = get(model.reactions[model.reaction_index[rid]], "gene_reaction_rule", nothing)
+    isnothing(x) && return nothing
+    x = parse_gene_association(x)
+    isnothing(x) && return nothing
+    eval_gene_association(x, available)
+end
+
+function A.reaction_gene_association_dnf(model::JSONFBCModel, rid::String)
+    x = get(model.reactions[model.reaction_index[rid]], "gene_reaction_rule", nothing)
+    isnothing(x) && return nothing
+    x = parse_gene_association(x)
+    isnothing(x) && return nothing
+    flatten_gene_association(x)
+end
 
 A.metabolite_formula(model::JSONFBCModel, mid::String) =
     parse_formula(get(model.metabolites[model.metabolite_index[mid]], "formula", nothing))
@@ -188,7 +201,7 @@ function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
 
             grr = A.reaction_gene_association_dnf(mm, rid)
             if !isnothing(grr)
-                res["gene_reaction_rule"] = unparse_grr(grr)
+                res["gene_reaction_rule"] = format_gene_association_dnf(grr)
             end
 
             res["lower_bound"] = lbs[ri]
