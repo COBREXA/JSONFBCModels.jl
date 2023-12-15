@@ -13,7 +13,8 @@
 end
 
 @testset "Corner cases" begin
-    import JSONFBCModels: parse_charge
+    import JSONFBCModels:
+        eval_gene_association, flatten_gene_association, parse_charge, sortunique
 
     @test parse_charge(1) == 1
     @test parse_charge(2.0) == 2
@@ -22,4 +23,7 @@ end
     @test parse_charge(nothing) == nothing
     @test_throws ArgumentError parse_charge("totally positive charge")
     @test_throws DomainError parse_charge(["very charged"])
+    @test_throws DomainError eval_gene_association(:(xor(gene("a"), gene("b"))), _ -> false)
+    @test_throws DomainError flatten_gene_association(:(xor(gene("a"), gene("b"))))
+    @test sortunique([3, 2, 2, 1]) == [1, 2, 3]
 end
