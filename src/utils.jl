@@ -40,7 +40,9 @@ function parse_annotations_or_notes(x)
     for (k, vs) in x
         if isa(vs, String)
             a_or_n[k] = String[vs]
-        else
+        elseif isa(vs, AbstractDict)
+            a_or_n[k] = String[string(p) for p in collect(vs)]
+        elseif isa(vs, AbstractVector)
             a_or_n[k] = String[v for v in vs]
         end
     end
