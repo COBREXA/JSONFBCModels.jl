@@ -210,7 +210,7 @@ function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
             I, V = findnz(S[:, ri])
             res["metabolites"] =
                 Dict{String,Float64}([met_ids[ii] => vv for (ii, vv) in zip(I, V)])
-            res
+            identity(res)
         end for (ri, rid) in enumerate(rxn_ids)
     ]
 
