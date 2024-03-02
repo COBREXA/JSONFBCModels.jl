@@ -24,7 +24,7 @@ const grr_grammar = begin
             p(m[i]) || break
             last = i
         end
-        last
+        return last
     end
 
     # eat one of keywords
