@@ -1,7 +1,7 @@
 name = "JSONFBCModels"
 uuid = "475c1105-d6ed-49c1-9b32-c11adca6d3e8"
 authors = ["The authors of JSONFBCModels.jl"]
-version = "0.1.2"
+version = "0.1.3"
 
 [deps]
 AbstractFBCModels = "5a4f3dfa-1789-40f8-8221-69268c29937c"
