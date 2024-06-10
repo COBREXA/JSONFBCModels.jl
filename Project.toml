@@ -11,7 +11,7 @@ PikaParser = "3bbf5609-3e7b-44cd-8549-7c69f321e792"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [compat]
-AbstractFBCModels = "0.1, 0.2"
+AbstractFBCModels = "0.1, 0.2, 0.3"
 DocStringExtensions = "0.8, 0.9"
 JSON = "0.21"
 PikaParser = "0.6"
