@@ -1,7 +1,7 @@
 name = "JSONFBCModels"
 uuid = "475c1105-d6ed-49c1-9b32-c11adca6d3e8"
 authors = ["The authors of JSONFBCModels.jl"]
-version = "0.1.2"
+version = "1.0.0"
 
 [deps]
 AbstractFBCModels = "5a4f3dfa-1789-40f8-8221-69268c29937c"
@@ -11,7 +11,7 @@ PikaParser = "3bbf5609-3e7b-44cd-8549-7c69f321e792"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [compat]
-AbstractFBCModels = "0.1, 0.2, 0.3"
+AbstractFBCModels = "1"
 DocStringExtensions = "0.8, 0.9"
 JSON = "0.21"
 PikaParser = "0.6"
