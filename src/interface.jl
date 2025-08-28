@@ -6,7 +6,8 @@ JSONFBCModel(json::Dict{String,Any}) = begin
 
     mkey = first(intersect(keys(json), constants.keynames.metabolites))
     ms = json[mkey]
-    isnothing(mkey) && throw(DomainError(keys(json), "JSON model has no metabolite keys"))
+    isnothing(mkey) &&
+        throw(DomainError(keys(json), "JSON model has no metabolite keys"))
 
     gkey = first(intersect(keys(json), constants.keynames.genes))
     gs = isnothing(gkey) ? [] : json[gkey]

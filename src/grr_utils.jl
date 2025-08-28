@@ -181,8 +181,8 @@ Formats a DNF gene association as a `String`.
 """
 function format_gene_association_dnf(
     grr::A.GeneAssociationDNF;
-    and = " && ",
-    or = " || ",
+    and = " & ",
+    or = " | ",
 )::String
     return join(("(" * join(gr, and) * ")" for gr in grr), or)
 end
