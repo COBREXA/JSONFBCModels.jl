@@ -1,5 +1,3 @@
-JSONFBCModel(json::JSON.Object{String,Any}) = JSONFBCModel(Dict{String, Any}(string(k) => v for (k, v) in json))    
-
 JSONFBCModel(json::Dict{String,Any}) = begin
     rkey = first(intersect(keys(json), constants.keynames.reactions))
     isnothing(rkey) && throw(DomainError(keys(json), "JSON model has no reaction keys"))
