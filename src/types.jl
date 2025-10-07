@@ -20,7 +20,7 @@ read-only, and any changes in the JSON fields usually break the model.
 $(TYPEDFIELDS)
 """
 struct JSONFBCModel <: A.AbstractFBCModel
-    json::JSON.Object{String,Any}
+    json::Dict{String,Any}
     reaction_index::Dict{String,Int}
     reactions::Vector{Any}
     metabolite_index::Dict{String,Int}

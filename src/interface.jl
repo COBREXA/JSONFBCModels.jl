@@ -1,5 +1,6 @@
+JSONFBCModel(json::JSON.Object{String,Any}) = JSONFBCModel(Dict{String, Any}(string(k) => v for (k, v) in json))    
 
-JSONFBCModel(json::JSON.Object{String,Any}) = begin
+JSONFBCModel(json::Dict{String,Any}) = begin
     rkey = first(intersect(keys(json), constants.keynames.reactions))
     isnothing(rkey) && throw(DomainError(keys(json), "JSON model has no reaction keys"))
     rs = json[rkey]
@@ -169,7 +170,7 @@ function Base.convert(::Type{JSONFBCModel}, mm::A.AbstractFBCModel)
     lbs, ubs = A.bounds(mm)
     ocs = A.objective(mm)
 
-    json = JSON.Object{String,Any}()
+    json = Dict{String,Any}()
 
     json[first(constants.keynames.genes)] = [
         Dict([
